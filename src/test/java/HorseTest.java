@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -175,7 +174,7 @@ class HorseTest {
         Для цього потрібно використовувати MockedStatic і його метод verify;
      */
     public void testMoveRequestMethod() {
-        try (MockedStatic mocked = mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> mocked = mockStatic(Horse.class)) {
             mocked.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(0.1);
             Horse mockHorse = Mockito.spy(new Horse("alex", 2.0));
             mockHorse.move();
