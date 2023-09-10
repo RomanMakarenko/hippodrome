@@ -1,8 +1,12 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
-
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     public static void main(String[] args) throws Exception {
         List<Horse> horses = List.of(
                 new Horse("Bucephalus", 2.4),
@@ -14,7 +18,14 @@ public class Main {
                 new Horse("Cherry", 3)
         );
         Hippodrome hippodrome = new Hippodrome(horses);
-
+        //--------------------------A----------------------
+        /*
+            Після створення об'єкта іподрому, додати в лог запис типу:
+            2022-05-31 17:05:26,152 INFO Main: Початок стрибків. Кількість учасників: 7
+         */
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss,ms");
+        String dateTime = simpleDateFormat.format(new Date());
+        logger.info(dateTime + " INFO " + Main.class.getName() + ": Початок стрибків. Кількість учасників: " + horses.size());
         for (int i = 0; i < 100; i++) {
             hippodrome.move();
             watch(hippodrome);
@@ -23,6 +34,13 @@ public class Main {
 
         String winnerName = hippodrome.getWinner().getName();
         System.out.println(winnerName + " wins!");
+        //--------------------------B----------------------
+        /*
+            Після виведення інформації про переможця, додати в лог запис типу:
+            2022-05-31 17:05:46,963 INFO Main: Закінчення стрибків. Переможець: Вишня
+         */
+        dateTime = simpleDateFormat.format(new Date());
+        logger.info(dateTime + " INFO " + Main.class.getName() + ": Закінчення стрибків. Переможець: " + winnerName);
     }
 
     private static void watch(Hippodrome hippodrome) throws Exception {
