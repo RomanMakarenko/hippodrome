@@ -120,7 +120,6 @@ class HorseTest {
     }
 
     // ----------------------------------B----------------------------
-    @ExtendWith(MockitoExtension.class)
     @Test
     /*
         Перевірити, що метод повертає рядок, який передавався першим параметром до конструктора;
@@ -132,7 +131,6 @@ class HorseTest {
     }
 
     // ----------------------------------C----------------------------
-    @ExtendWith(MockitoExtension.class)
     @Test
     /*
         Перевірити, що метод повертає число, яке передалося другим параметром до конструктора;
@@ -144,7 +142,6 @@ class HorseTest {
     }
 
     // ----------------------------------D----------------------------
-    @ExtendWith(MockitoExtension.class)
     @Test
     /*
         Перевірити, що метод повертає число, яке передалося третім параметром конструктора;
@@ -155,7 +152,6 @@ class HorseTest {
         assertEquals(expectedDistance, mockHorse.getDistance());
     }
 
-    @ExtendWith(MockitoExtension.class)
     @Test
     /*
         Перевірити, чи метод повертає нуль, якщо об'єкт створено за допомогою конструктора з двома параметрами;
@@ -167,7 +163,6 @@ class HorseTest {
     }
 
     // ----------------------------------E----------------------------
-    @ExtendWith(MockitoExtension.class)
     @Test
     /*
         Перевірити, що метод викликає всередині метод getRandomDouble параметрів 0.2 і 0.9.
@@ -182,7 +177,6 @@ class HorseTest {
         }
     }
 
-    @ExtendWith(MockitoExtension.class)
     @ParameterizedTest
     @CsvSource({
             "alex, 1.0, 1.0, 0.3, 1.3",
@@ -194,7 +188,7 @@ class HorseTest {
         щоб він повертав певні значення, які треба встановити за допомогою параметризації тесту.
      */
     public void testMove(String name, double speed, double distance, double randValue, double result) {
-        try (MockedStatic mocked = mockStatic(Horse.class)) {
+        try (MockedStatic<Horse> mocked = mockStatic(Horse.class)) {
             mocked.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(randValue);
             Horse mockHorse = Mockito.spy(new Horse(name, speed, distance));
             mockHorse.move();
